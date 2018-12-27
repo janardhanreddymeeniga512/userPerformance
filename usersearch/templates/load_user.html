@@ -1,0 +1,28 @@
+{% extends 'base.html'%} {% block content%}
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div class="container">
+        <input type="text" name="q" ng-model="q">
+        <input type="button" value="search" ng-click="searchName(q)" />
+    </div>
+    <hr>
+
+    <div ng-if="err_data" style="background-color:red; color:#ffffff;">
+        [[err_data.statusText]]
+    </div>
+
+    <table ng-if="res_data">
+        <thead>
+            <th>Given Name</th>
+            <th>Middle Name</th>
+            <th>Surname</th>
+        </thead>
+        <tbody ng-repeat="key in res_data">
+            <tr>
+                <td>[[key.givenName]]</td>
+                <td>[[key.middleName]]</td>
+                <td>[[key.surname]]</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock %}

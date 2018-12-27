@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SpaceUtilization</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="{% static 'angular.min.js' %}"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.config(function($interpolateProvider) {
+            $interpolateProvider.startSymbol('[[').endSymbol(']]');
+        });
+
+        app.controller('myCtrl', function($scope, $http) {
+            $scope.searchName = function(val) {
+                $http.get("/instasearch/?q=" + val)
+                    .then(function(response) {
+                            console.log(response.data)
+                            $scope.res_data = response.data
+                            $scope.err_data = false
+                        },
+                        function(data) {
+                            $scope.err_data = data
+                            $scope.res_data = false
+                        });
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    {% block content %} {% endblock %}
+</body>
+
+</html>
